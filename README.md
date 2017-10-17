@@ -1,24 +1,15 @@
-# README
+# MOD. image slideshow server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An image slideshow server written in [Ruby on Rails](https://rubyonrails.org). 
 
-Things you may want to cover:
+## TODO:
 
-* Ruby version
+* Create Image model.
+* Create POST API for accepting images.
+* Create slideshow on homepage of 30 most recent images.
 
-* System dependencies
+## License
 
-* Configuration
+Released under an [MIT License](LICENSE).
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Copyright (c) 2017 [MOD.](https://mod.org.au)
