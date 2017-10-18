@@ -1,3 +1,34 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Simple slideshow
+// https://codepen.io/gabrieleromanato/pen/dImly
+
+$slideshow-width: 200px;
+$slideshow-height: 200px;
+
+.slider {
+  width: $slideshow-width;
+  margin: 2em auto;
+  
+}
+
+.slider-wrapper {
+  width: 100%;
+  height: $slideshow-height;
+  position: relative;
+}
+
+.slide {
+  float: left;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+.slider-wrapper > .slide:first-child {
+  opacity: 1;
+}

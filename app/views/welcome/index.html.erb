@@ -1,3 +1,11 @@
 <h1><%= ENV["app_site_title"] %></h1>
 <p>TODO: full-screen slideshow of images.</p>
 <p><%= link_to("Images", images_path) %></p>
+
+<div class="slider" id="main-slider">
+  <div class="slider-wrapper">
+    <% @images.each do |image| %>
+      <%= image_tag(image.data_url(:thumb_2x), class: 'slide') %>
+    <% end %>
+  </div>
+</div>
