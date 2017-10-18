@@ -1,6 +1,10 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
+  # TOFIX: turn this back on and setup API key if opening this up to the big bad internets.
+  # Test upload: curl -i -F image[data]=@/file.jpg http://localhost:3000/images
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   # GET /images
   # GET /images.json
   def index

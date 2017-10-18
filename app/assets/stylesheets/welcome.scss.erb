@@ -5,8 +5,11 @@
 // Simple slideshow
 // https://codepen.io/gabrieleromanato/pen/dImly
 
-$slideshow-width: 200px;
-$slideshow-height: 200px;
+// Our projector is 1920 x 1200
+// Fit it to a preview by dividing by 2
+$slideshow-width: <%= "#{ENV["projector_width"].to_i/2}px" %>;
+$slideshow-height: <%= "#{ENV["projector_height"].to_i/2}px" %>;
+$slide-fade-time: 1s;
 
 .slider {
   width: $slideshow-width;
@@ -26,7 +29,7 @@ $slideshow-height: 200px;
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1s linear;
+  transition: opacity $slide-fade-time linear;
 }
 
 .slider-wrapper > .slide:first-child {

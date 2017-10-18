@@ -38,6 +38,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [400, 400]
   end
 
+  version :projector do
+    process resize_to_fill: ["#{ENV["projector_width"]}".to_i, "#{ENV["projector_height"]}".to_i]
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
