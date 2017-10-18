@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# TODO: don't load this for every page.
+
 # Simple slideshow
 # https://codepen.io/gabrieleromanato/pen/dImly
 

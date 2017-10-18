@@ -32,6 +32,14 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
+
+        # Broadcast update
+        params[:page] = "home"
+        ImageChannel.broadcast_to(
+          "image_#{params[:page]}",
+          data_url: @image.data_url(:projector)
+        )
+
         format.html { redirect_to @image, notice: 'Image was successfully created.' }
         format.json { render :show, status: :created, location: @image }
       else
