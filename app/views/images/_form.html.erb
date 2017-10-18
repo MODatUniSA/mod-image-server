@@ -1,0 +1,29 @@
+<%= form_with(model: image, local: true, html: { multipart: true }) do |form| %>
+  <% if image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(image.errors.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+      <% image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= image_tag(@image.data_url(:thumb_2x), size: '200x200') if @image.data? %>
+
+  <div class="field">
+    <%= form.label :data %>
+    <%= form.file_field :data, id: :image_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Remove image" %>
+    <%= form.check_box :remove_data %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
