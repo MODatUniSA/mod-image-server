@@ -13,13 +13,36 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
     @prependTableData(data)
 
   prependTableData: (data) ->
-    # Update table
-    html = @createImage(data)
-    $(".slider-wrapper").append(html)
-    # TODO: Update slideshow javascript to show new image
+
+    # Update home page slideshow javascript to show new image
+    @updateSlideshowJavascript(data)
+
+    # Update images index list
+    html = @createImagesIndexHtml(data)
+    $(".images-index-table").append(html)
  
-  createImage: (data) ->
+  createSlideshowImageHtml: (data) ->
     """
-    <p>TODO: Update javascript for #{data.data_url}</p>
-    <img src="#{data.data_url}" class="slide">
+    <img src="#{data.data_url}" class="slide" style="opacity: 1;">
     """
+
+  createImagesIndexHtml: (data) ->
+    """
+    <tr>
+      <td><img src="#{data.data_url}" width="100" height="100"></td>
+      <td>Whoa!</td>
+      <td>Where did this come from?</td>
+      <td>Nobody knows. (Simon knows)</td>
+    </tr>
+    """
+
+  updateSlideshowJavascript: (data) ->
+    # Mark all images opacity to 0 to make them invisible
+    $.each $('.slide'), (index, value) ->
+      value.style.opacity = 0
+      return
+    # Show new image
+    html = @createSlideshowImageHtml(data)
+    $(".slider-wrapper").append(html)
+    # Clear the current slider and reset it to include the new image
+    slider.reset()

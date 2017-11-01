@@ -11,7 +11,7 @@ pauseBetweenSlides = 5000
 
 do ->
 
-  Slideshow = (element) ->
+  window.Slideshow = (element) ->
     @el = document.querySelector(element)
     @init()
     return
@@ -61,7 +61,14 @@ do ->
         return
       ), false
       return
+    reset: ->
+      self = this
+      clearInterval slider.timer
+      self.timer = null
+      self.slides = @el.querySelectorAll('.slide')
+      self.action()
+      return
   document.addEventListener 'DOMContentLoaded', ->
-    slider = new Slideshow('#main-slider')
+    window.slider = new Slideshow('#main-slider')
     return
   return

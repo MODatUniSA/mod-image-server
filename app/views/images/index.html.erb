@@ -10,7 +10,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="images-index-table">
     <% @images.each do |image| %>
       <tr>
         <td><%= link_to(image_tag(image.data_url(:thumb), size: '100x100'), image_path(image)) if image.data? %></td>
