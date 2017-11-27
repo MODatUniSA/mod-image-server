@@ -29,13 +29,15 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     if image_params["ios_data"]
-      logger.info "Need to decode iOS image."
+      # Handle images from iOS
+      # logger.info "Need to decode iOS image."
       tmp_params = {}
       tmp_params["data"] = parse_image_data(image_params["ios_data"])
       # byebug
       @image = Image.new(tmp_params)
       clean_tempfile
     else
+      # Just create the image as usual
       @image = Image.new(image_params)
     end    
 
