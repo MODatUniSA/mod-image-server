@@ -28,7 +28,16 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    @image = Image.new(image_params)
+    if image_params["ios_data"]
+      logger.info "Need to decode iOS image."
+      tmp_params = {}
+      tmp_params["data"] = parse_image_data(image_params["ios_data"])
+      # byebug
+      @image = Image.new(tmp_params)
+      clean_tempfile
+    else
+      @image = Image.new(image_params)
+    end    
 
     respond_to do |format|
       if @image.save
@@ -43,6 +52,7 @@ class ImagesController < ApplicationController
         format.html { redirect_to @image, notice: 'Image was successfully created.' }
         format.json { render :show, status: :created, location: @image }
       else
+        logger.info @image.errors.full_messages
         format.html { render :new }
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
@@ -74,6 +84,41 @@ class ImagesController < ApplicationController
   end
 
   private
+
+    def parse_image_data(base64_image)
+      filename = "upload-image"
+      in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
+
+      @tempfile = Tempfile.new(filename)
+      @tempfile.binmode
+      @tempfile.write Base64.decode64(base64_image)#.force_encoding("binary")
+      @tempfile.rewind
+
+      # for security we want the actual content type, not just what was passed in
+      content_type = `file --mime -b #{@tempfile.path}`.split(";")[0]
+
+      # we will also add the extension ourselves based on the above
+      # if it's not gif/jpeg/png, it will fail the validation in the upload model
+      extension = content_type.match(/gif|jpeg|png/).to_s
+      filename += ".#{extension}" if extension
+
+      # byebug
+
+      ActionDispatch::Http::UploadedFile.new({
+        tempfile: @tempfile,
+        content_type: content_type,
+        filename: filename
+      })
+    end
+
+    def clean_tempfile
+      if @tempfile
+        @tempfile.close
+        @tempfile.unlink
+      end
+    end
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_image
       @image = Image.find(params[:id])
@@ -81,6 +126,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:data)
+      params.require(:image).permit(:data, :ios_data)
     end
 end
