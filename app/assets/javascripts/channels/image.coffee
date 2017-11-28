@@ -45,4 +45,5 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
     html = @createSlideshowImageHtml(data)
     $(".slider-wrapper").append(html)
     # Clear the current slider and reset it to include the new image
-    slider.reset()
+    if typeof slider != 'undefined'
+      slider.reset()
