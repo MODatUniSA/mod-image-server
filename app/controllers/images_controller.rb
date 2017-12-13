@@ -32,7 +32,26 @@ class ImagesController < ApplicationController
       # Handle images from iOS
       # logger.info "Need to decode iOS image."
       tmp_params = {}
+
       tmp_params["data"] = parse_image_data(image_params["ios_data"])
+
+      # TODO: send base64 image data to have image transfer applied
+      tmp_image_id_from_deep_dream = 1
+
+      response_from_deep_dream = HTTParty.put(
+        URI.parse(ENV["deep_dream_server"] + "/image" + tmp_image_id_from_deep_dream.to_s),
+        body: image_params.to_json,
+        headers: {
+          'Content-Type' => 'application/json', 
+          'Accept' => 'application/json'
+        }
+      )
+
+      # If we get useful data back, save it, else just save the original image.
+      if response_from_deep_dream.code == 200
+        tmp_params["data"] = parse_image_data(response_from_deep_dream["image" + tmp_image_id_from_deep_dream.to_s])
+      end
+
       # byebug
       @image = Image.new(tmp_params)
       clean_tempfile
