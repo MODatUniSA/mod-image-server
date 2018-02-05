@@ -70,5 +70,33 @@ do ->
       return
   document.addEventListener 'DOMContentLoaded', ->
     window.slider = new Slideshow('#main-slider')
+
+    # Set fullscreen toggle
+    document.querySelector("#toggle_fullscreen").addEventListener 'click', ->
+      console.log("Fullscreen clicked.")
+      if document.fullscreenElement or document.webkitFullscreenElement or document.mozFullScreenElement or document.msFullscreenElement
+        if document.exitFullscreen
+          document.exitFullscreen()
+        else if document.mozCancelFullScreen
+          document.mozCancelFullScreen()
+        else if document.webkitExitFullscreen
+          document.webkitExitFullscreen()
+        else if document.msExitFullscreen
+          document.msExitFullscreen()
+      else
+        element = $('#main-slider').get(0)
+        # element.style.width = "100%"
+        element.style.height = "100%"
+        if element.requestFullscreen
+          element.requestFullscreen()
+        else if element.mozRequestFullScreen
+          element.mozRequestFullScreen()
+        else if element.webkitRequestFullscreen
+          element.webkitRequestFullscreen Element.ALLOW_KEYBOARD_INPUT
+        else if element.msRequestFullscreen
+          element.msRequestFullscreen()
+      return
     return
+
   return
+

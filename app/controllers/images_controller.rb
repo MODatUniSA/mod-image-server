@@ -28,6 +28,9 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
+
+    # TODO: Save original image and image style transferred image.
+
     if image_params["ios_data"]
       # Handle images from iOS
       # logger.info "Need to decode iOS image."
@@ -35,7 +38,7 @@ class ImagesController < ApplicationController
 
       tmp_params["data"] = parse_image_data(image_params["ios_data"])
 
-      # TODO: send base64 image data to have image transfer applied
+      # Send base64 image data to have image transfer applied
       tmp_image_id_from_deep_dream = 1
 
       response_from_deep_dream = HTTParty.put(
