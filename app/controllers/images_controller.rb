@@ -38,21 +38,24 @@ class ImagesController < ApplicationController
 
       tmp_params["data"] = parse_image_data(image_params["ios_data"])
 
-      # Send base64 image data to have image transfer applied
-      tmp_image_id_from_deep_dream = 1
+      # If the user asks for style transfer, do it, else just save image.
+      if image_params["style_transfer"] == "true"
+        # Send base64 image data to have image transfer applied
+        tmp_image_id_from_deep_dream = 1
 
-      response_from_deep_dream = HTTParty.put(
-        URI.parse(ENV["deep_dream_server"] + "/image" + tmp_image_id_from_deep_dream.to_s),
-        body: image_params.to_json,
-        headers: {
-          'Content-Type' => 'application/json', 
-          'Accept' => 'application/json'
-        }
-      )
+        response_from_deep_dream = HTTParty.put(
+          URI.parse(ENV["deep_dream_server"] + "/image" + tmp_image_id_from_deep_dream.to_s),
+          body: image_params.to_json,
+          headers: {
+            'Content-Type' => 'application/json', 
+            'Accept' => 'application/json'
+          }
+        )
 
-      # If we get useful data back, save it, else just save the original image.
-      if response_from_deep_dream.code == 200
-        tmp_params["data"] = parse_image_data(response_from_deep_dream["image" + tmp_image_id_from_deep_dream.to_s])
+        # If we get useful data back, save it.
+        if response_from_deep_dream.code == 200
+          tmp_params["style_data"] = parse_image_data(response_from_deep_dream["image" + tmp_image_id_from_deep_dream.to_s])
+        end
       end
 
       # byebug
@@ -150,6 +153,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:data, :ios_data)
+      params.require(:image).permit(:data, :ios_data, :style_transfer, :style_data)
     end
 end

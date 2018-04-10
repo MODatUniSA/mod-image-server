@@ -85,6 +85,7 @@ do ->
           document.msExitFullscreen()
       else
         element = $('#main-slider').get(0)
+        # TODO: work out a nice fullscreen ratio - and scale image to fit.
         # element.style.width = "100%"
         element.style.height = "100%"
         if element.requestFullscreen
