@@ -15,6 +15,9 @@ gem 'mini_magick'
 # Easy http
 gem 'httparty'
 
+# Twitter bootstrap
+gem 'bootstrap'#, '~> 4.1.0'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

@@ -29,7 +29,7 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
 
-    # TODO: Save original image and image style transferred image.
+    # Save original image and image style transferred image if requested.
 
     if image_params["ios_data"]
       # Handle images from iOS
@@ -73,7 +73,9 @@ class ImagesController < ApplicationController
         params[:page] = "home"
         ImageChannel.broadcast_to(
           "image_#{params[:page]}",
-          data_url: @image.data_url(:projector)
+          data_url: @image.data_url(:thumb_2x),
+          data_id: @image.id,
+          data_created_at: @image.created_at
         )
 
         format.html { redirect_to @image, notice: 'Image was successfully created.' }

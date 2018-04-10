@@ -19,7 +19,7 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
 
     # Update images index list
     html = @createImagesIndexHtml(data)
-    $(".images-index-table").append(html)
+    $(".row").prepend(html)
  
   createSlideshowImageHtml: (data) ->
     """
@@ -28,12 +28,21 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
 
   createImagesIndexHtml: (data) ->
     """
-    <tr>
-      <td><img src="#{data.data_url}" width="100" height="100"></td>
-      <td>Whoa!</td>
-      <td>Where did this come from?</td>
-      <td>Nobody knows. (Simon knows)</td>
-    </tr>
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <a href="/images/#{data.data_id}"><img class="card-img-top" src="#{data.data_url}" alt="Thumb 2x upload image" /></a>
+        <div class="card-body">
+          <!-- <p class="card-text">Description text if needed</p> -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-warning" href="/images/#{data.data_id}/edit">Moderate</a>
+              <a class="btn btn-sm btn-outline-secondary" href="/images/#{data.data_id}/edit">Edit</a>
+            </div>
+            <small class="text-muted">Just now!</small>
+          </div>
+        </div>
+      </div>
+    </div>
     """
 
   updateSlideshowJavascript: (data) ->

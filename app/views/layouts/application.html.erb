@@ -9,6 +9,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <main role="main">
+      <%= render "shared/header" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
+    </main>
   </body>
 </html>
