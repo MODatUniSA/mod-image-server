@@ -30,3 +30,7 @@
 
 # Ignore public uploads folder
 /public/uploads/*
+
+# Ignore slideshow folder
+/public/slideshow/*.png
+

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get :moderate
     get :unmoderate
   end
+  get 'welcome/update_slideshow'
   get 'welcome/index'
   root 'welcome#index'
 

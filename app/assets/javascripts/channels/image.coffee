@@ -35,7 +35,7 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
           <!-- <p class="card-text">Description text if needed</p> -->
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <a class="btn btn-sm btn-outline-warning" href="/images/#{data.data_id}/moderate">Moderate</a>
+              <a class="btn btn-sm btn-outline-danger" href="/images/#{data.data_id}/moderate">Moderate</a>
               <a class="btn btn-sm btn-outline-secondary" href="/images/#{data.data_id}/edit">Edit</a>
             </div>
             <small class="text-muted">Just now!</small>
