@@ -9,6 +9,7 @@
     <!-- <p class="lead text-muted">It'll look like this:</p> -->
     <p>
       <%= link_to "Show all images", images_path(all: true), class: 'btn btn-outline-secondary my-2' %>
+      <%= link_to "Update slideshow", "#", class: 'btn btn-outline-primary my-2' %>
     </p>
   </div>
 </section>
@@ -18,7 +19,7 @@
 
     <div class="row">
     <% @images.each_with_index do |image, index| %>
-      <%= render partial: "shared/card", locals: { image: image } %>
+      <%= render partial: "shared/card", locals: { image: image, show: false } %>
     <% end %>
     </div>
   </div>

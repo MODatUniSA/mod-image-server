@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :images do
     get :moderate
+    get :unmoderate
   end
   get 'welcome/index'
   root 'welcome#index'

@@ -1,11 +1,8 @@
-<p id="notice"><%= notice %></p>
+<div class="album py-5 bg-light">
+  <div class="container">
 
-<p><%= image_tag(@image.data_url(:thumb_2x), size: '200x200') if @image.data? %></p>
-
-<p>
-  <strong>Data:</strong>
-  <%= @image.data %>
-</p>
-
-<%= link_to 'Edit', edit_image_path(@image) %> |
-<%= link_to 'Back', images_path %>
+    <div class="row">
+      <%= render partial: "shared/card", locals: { image: @image, show: true } %>
+    </div>
+  </div>
+</div>

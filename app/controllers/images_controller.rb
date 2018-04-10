@@ -29,11 +29,25 @@ class ImagesController < ApplicationController
   def edit
   end
 
-  # PATCH/PUT /images/1
-  # PATCH/PUT /images/1.json
+  # GET /images/1
+  # GET /images/1.json
   def moderate
     @image = Image.find(params["image_id"])
     @image.moderate = true
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path, notice: 'Image was successfully moderated.' }
+        format.json { render :show, status: :ok, location: @image }
+      else
+        format.html { render :edit }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def unmoderate
+    @image = Image.find(params["image_id"])
+    @image.moderate = false
     respond_to do |format|
       if @image.save
         format.html { redirect_to images_path, notice: 'Image was successfully moderated.' }
