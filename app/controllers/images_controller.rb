@@ -8,7 +8,11 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
-    @images = Image.all
+    if ActionController::Base.helpers.sanitize(params[:all]) == "true"
+      @images = Image.all.reverse
+    else
+      @images = Image.where(moderate: false).reverse
+    end
   end
 
   # GET /images/1
@@ -23,6 +27,22 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
+  end
+
+  # PATCH/PUT /images/1
+  # PATCH/PUT /images/1.json
+  def moderate
+    @image = Image.find(params["image_id"])
+    @image.moderate = true
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path, notice: 'Image was successfully moderated.' }
+        format.json { render :show, status: :ok, location: @image }
+      else
+        format.html { render :edit }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /images
@@ -155,6 +175,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:data, :ios_data, :style_transfer, :style_data)
+      params.require(:image).permit(:data, :ios_data, :style_transfer, :style_data, :moderate)
     end
 end

@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @images = Image.all
+    @images = Image.where(moderate: false).reverse
   end
 end

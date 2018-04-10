@@ -12,12 +12,12 @@
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
-  <% @images.reverse.each_with_index do |image, index| %>
+  <% @images.each_with_index do |image, index| %>
     <li data-target="#myCarousel" data-slide-to="<%= index %>"<% if index == 0 %> class="active"><% end %></li>
   <% end %>
   </ol>
   <div class="carousel-inner">
-  <% @images.reverse.each_with_index do |image, index| %>
+  <% @images.each_with_index do |image, index| %>
     <div class="carousel-item<% if index == 0 %> active<% end %>">
       <%= link_to(image_tag(image.data_url(:projector), class: 'second-slide'), image_path(image)) %>
       <div class="container">
@@ -46,7 +46,7 @@
     <p class="lead text-muted">Visitors are invited to draw their pain. This is the moderation interface.</p>
     <!-- <p class="lead text-muted">It'll look like this:</p> -->
     <p>
-      <%= link_to "Moderate images", images_path, class: 'btn btn-danger my-2' %>
+      <%= link_to "Moderate images", images_path, class: 'btn btn-outline-danger my-2' %>
     </p>
   </div>
 </section>

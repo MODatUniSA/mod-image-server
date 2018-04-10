@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :images
+  resources :images do
+    get :moderate
+  end
   get 'welcome/index'
   root 'welcome#index'
 

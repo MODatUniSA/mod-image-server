@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p class="alert" role="alert" id="notice"><%= notice %></p>
 
 <!-- <%= link_to 'New Image', new_image_path %> -->
 
@@ -6,10 +6,10 @@
   <div class="container">
     <h1 class="jumbotron-heading">Images</h1>
     <p class="lead text-muted">Here are all of the images submitted by visitors. Tap the moderate button to stop them from being displayed in our slideshow.</p>
-    <!-- <p class="lead text-muted">It'll look like this:</p>
+    <!-- <p class="lead text-muted">It'll look like this:</p> -->
     <p>
-      <a href="#" class="btn btn-danger my-2">Moderate</a>
-    </p> -->
+      <%= link_to "Show all images", images_path(all: true), class: 'btn btn-outline-secondary my-2' %>
+    </p>
   </div>
 </section>
 
@@ -17,7 +17,7 @@
   <div class="container">
 
     <div class="row">
-    <% @images.reverse.each_with_index do |image, index| %>
+    <% @images.each_with_index do |image, index| %>
       <%= render partial: "shared/card", locals: { image: image } %>
     <% end %>
     </div>

@@ -31,7 +31,7 @@ body {
 
 /* Carousel base class */
 .carousel {
-  // margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -146,6 +146,7 @@ body {
 
 section.jumbotron {
   margin-bottom: 0;
+  padding: 2rem;
 }
 
 footer {

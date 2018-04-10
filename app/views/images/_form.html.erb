@@ -23,6 +23,23 @@
     <%= form.check_box :remove_data %>
   </div>
 
+  <%= image_tag(@image.style_data_url(:thumb_2x), size: '200x200') if @image.style_data? %>
+
+  <div class="field">
+    <%= form.label :style_data %>
+    <%= form.file_field :style_data, id: :image_style_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Remove image" %>
+    <%= form.check_box :remove_style_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Moderate" %>
+    <%= form.check_box :moderate %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
