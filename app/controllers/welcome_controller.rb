@@ -7,9 +7,15 @@ class WelcomeController < ApplicationController
     logger.info "Updating slideshow."
     # Save all images to a slideshow directory.
     @images = Image.where(moderate: false).reverse
-    # TODO: Remove all previous images, then save new ones.
+    # Remove all previous images
+    rails_root_path = Rails.root.join('public/slideshow/').to_s
+    Dir.glob(rails_root_path + '*.png') do |image|
+      logger.info image
+      File.delete(image)
+    end
+    # Now save newly moderated ones
     @images.each do |image|
-      image_save_path = Rails.root.join('public/slideshow/').to_s + image.id.to_s + File.extname(image.data.url)
+      image_save_path = rails_root_path + image.id.to_s + File.extname(image.data.url)
       image_path = Rails.root.join('public').to_s + image.data.url
       logger.info "Saving slideshow image: " + image_save_path
       File.open(image_save_path, 'w') do |f|
@@ -20,7 +26,8 @@ class WelcomeController < ApplicationController
   end
 
   def reboot_server
-    system "sudo /sbin/reboot"
+    # TODO: Work out why this doesn't work.
+    # system "sudo /sbin/reboot"
     redirect_to images_path, notice: 'Rebooting...'
   end
 end
