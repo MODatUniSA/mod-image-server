@@ -20,7 +20,7 @@ class WelcomeController < ApplicationController
   end
 
   def reboot_server
-    system "sudo reboot now"
+    system "sudo reboot"
     redirect_to images_path, notice: 'Rebooting...'
   end
 end
