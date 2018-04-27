@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get :unmoderate
   end
   get 'welcome/update_slideshow'
+  get 'welcome/reboot_server'
   get 'welcome/index'
   root 'welcome#index'
 
