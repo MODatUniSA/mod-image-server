@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
   get 'welcome/update_slideshow'
   # TODO: fix this
-  # get 'welcome/reboot_server'
+  get 'welcome/reboot_server'
   get 'welcome/index'
   root 'welcome#index'
 
