@@ -26,6 +26,7 @@ app_site_title: "MOD. Draw Your Pain"
 projector_width: "1920"
 projector_height: "1200"
 deep_dream_server: "http://localhost:5000"
+image_text_overlay_font_path: “/path/to/font.ttf"
 ```
 
 ## License
