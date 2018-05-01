@@ -26,7 +26,7 @@ class WelcomeController < ApplicationController
       text_overlay_image.combine_options do |combine|
         combine.font ENV["image_text_overlay_font_path"]
         combine.pointsize 38
-        text_string = "The pain of MOD. visitor #{image.id}, #{image.created_at.strftime("%B #{image.created_at.day.ordinalize}")}"
+        text_string = "The pain of visitor #{image.id}, #{image.created_at.strftime("%B #{image.created_at.day.ordinalize}")}"
         combine.draw "text 0,0 #{"'" + text_string + "'"}"
         combine.gravity "South"
         combine.fill 'white'
