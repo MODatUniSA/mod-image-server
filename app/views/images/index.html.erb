@@ -5,10 +5,14 @@
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading">Images</h1>
-    <p class="lead text-muted">Here are all of the images submitted by visitors. Tap the moderate button to stop them from being displayed in our slideshow.</p>
+    <p class="lead text-muted">Here are the <%= @image_count %> images submitted by visitors.</p>
     <!-- <p class="lead text-muted">It'll look like this:</p> -->
     <p>
-      <%= link_to "Show all images", images_path(all: true), class: 'btn btn-outline-secondary my-2' %>
+      <% if not params["accepted"] %>
+        <%= link_to "Show accepted images", images_path(accepted: true), class: 'btn btn-outline-secondary my-2' %>
+      <% else %>
+        <%= link_to "Show all images", images_path, class: 'btn btn-outline-secondary my-2' %>
+      <% end %>
       <%= link_to "Update slideshow", welcome_update_slideshow_path, class: 'btn btn-outline-primary my-2' %>
       <!-- TODO: See if I can reboot from Rails... -->
       <% link_to "Reboot server", welcome_reboot_server_path, class: 'btn btn-outline-danger my-2' %>
@@ -21,8 +25,12 @@
 
     <div class="row">
     <% @images.each_with_index do |image, index| %>
-      <%= render partial: "shared/card", locals: { image: image, show: false } %>
+      <%= render partial: "shared/card", locals: { image: image, show: false, size: 2 } %>
     <% end %>
     </div>
+    <br /><br />
+    <% if not params["accepted"] %>
+      <%= paginate @images %>
+    <% end %>
   </div>
 </div>

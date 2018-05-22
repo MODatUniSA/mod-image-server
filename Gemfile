@@ -18,6 +18,9 @@ gem 'httparty'
 # Twitter bootstrap
 gem 'bootstrap'#, '~> 4.1.0'
 
+# Pagination
+gem 'kaminari'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

@@ -6,8 +6,8 @@ class WelcomeController < ApplicationController
 
   def update_slideshow
     logger.info "Updating slideshow."
-    # Save all images to a slideshow directory.
-    @images = ApplicationRecord::Image.where(moderate: false).reverse
+    # Save a random 30 moderated images to a slideshow directory.
+    @images = ApplicationRecord::Image.where(moderate: false).order("RANDOM()").limit(30)
     # Remove all previous images
     rails_root_path = Rails.root.join('public/slideshow/').to_s
     Dir.glob(rails_root_path + '*.png') do |image|

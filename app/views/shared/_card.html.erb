@@ -1,5 +1,5 @@
-<div class="col-md-4">
-  <div class="card mb-4 box-shadow">
+<div class="col-md-<%= size %>">
+  <div class="card mb-<%= size %> box-shadow">
     <% if show %>
     <%= link_to(image_tag(image.data_url, class: 'card-img-top'), image_path(image)) if image.data? %>
     <% else %>
@@ -13,15 +13,15 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
           <% if image.moderate %>
-          <%= link_to 'Unmoderate', image_unmoderate_path(image), class: 'btn btn-sm btn-outline-primary' %>
+          <%= link_to 'Accept', image_unmoderate_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-success' %>
           <% else %>
-          <%= link_to 'Moderate', image_moderate_path(image), class: 'btn btn-sm btn-outline-danger' %>
+          <%= link_to 'Reject', image_moderate_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-danger' %>
           <% end %>
           <%= link_to 'Edit', edit_image_path(image), class: 'btn btn-sm btn-outline-secondary' %>
           <%= link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' if show %>
         </div>
-        <small class="text-muted"><%= image.created_at.strftime("%d %b %I:%M%p") %></small>
       </div>
+      <small class="text-muted"><%= image.created_at.strftime("%d %b %I:%M%p") %></small>
     </div>
   </div>
 </div>

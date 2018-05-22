@@ -125,6 +125,10 @@ body {
   background-color: black;
 }
 
+.card-body {
+  // text-align: center;
+}
+
 @media (min-width: 768px) {
   .jumbotron {
     padding-top: calc(var(--jumbotron-padding-y) * 2);

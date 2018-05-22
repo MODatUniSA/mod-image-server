@@ -8,10 +8,12 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
-    if ActionController::Base.helpers.sanitize(params[:all]) == "true"
-      @images = Image.all.reverse
-    else
+    @image_count = Image.count
+    if ActionController::Base.helpers.sanitize(params[:accepted]) == "true"
+      # Just show the accepted images
       @images = Image.where(moderate: false).reverse
+    else
+      @images = Image.all.reverse_order.page params[:page]
     end
   end
 
@@ -36,7 +38,7 @@ class ImagesController < ApplicationController
     @image.moderate = true
     respond_to do |format|
       if @image.save
-        format.html { redirect_to images_path, notice: 'Image was successfully moderated.' }
+        format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
         format.json { render :show, status: :ok, location: @image }
       else
         format.html { render :edit }
@@ -50,7 +52,7 @@ class ImagesController < ApplicationController
     @image.moderate = false
     respond_to do |format|
       if @image.save
-        format.html { redirect_to images_path, notice: 'Image was successfully moderated.' }
+        format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
         format.json { render :show, status: :ok, location: @image }
       else
         format.html { render :edit }
@@ -94,6 +96,10 @@ class ImagesController < ApplicationController
 
       # byebug
       @image = Image.new(tmp_params)
+
+      # Moderate the image by default
+      @image.moderate = true
+
       clean_tempfile
     else
       # Just create the image as usual
