@@ -28,14 +28,14 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
 
   createImagesIndexHtml: (data) ->
     """
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
+    <div class="col-md-2">
+      <div class="card mb-2 box-shadow">
         <a href="/images/#{data.data_id}"><img class="card-img-top" src="#{data.data_url}" alt="Thumb 2x upload image" /></a>
         <div class="card-body">
           <!-- <p class="card-text">Description text if needed</p> -->
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <a class="btn btn-sm btn-outline-danger" href="/images/#{data.data_id}/moderate">Moderate</a>
+              <a class="btn btn-sm btn-outline-success" href="/images/#{data.data_id}/unmoderate">Accept</a>
               <a class="btn btn-sm btn-outline-secondary" href="/images/#{data.data_id}/edit">Edit</a>
             </div>
             <small class="text-muted">Just now!</small>
