@@ -7,7 +7,7 @@
     <% end %>
     <div class="card-body">
       <% if show %>
-      <h5 class="card-title">ID: <%= image.id %><% if image.moderate %><br>This image has been moderated.<% end %></h5>
+      <h5 class="card-title">ID: <%= image.id %><% if image.moderate %><br><span style="color: grey;">This image will not currently show in the slideshow.</span><% end %></h5>
       <!-- <p class="card-text"><%= image.data %></p> -->
       <% end %>
       <div class="d-flex justify-content-between align-items-center">
