@@ -38,8 +38,8 @@ App.image = App.cable.subscriptions.create { channel: "ImageChannel", page: "hom
               <a class="btn btn-sm btn-outline-success" href="/images/#{data.data_id}/unmoderate">Accept</a>
               <a class="btn btn-sm btn-outline-secondary" href="/images/#{data.data_id}/edit">Edit</a>
             </div>
-            <small class="text-muted">Just now!</small>
           </div>
+          <small class="text-muted">Just now!</small>
         </div>
       </div>
     </div>

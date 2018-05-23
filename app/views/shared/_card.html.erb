@@ -17,7 +17,8 @@
           <% else %>
           <%= link_to 'Reject', image_moderate_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-danger' %>
           <% end %>
-          <%= link_to 'Edit', edit_image_path(image), class: 'btn btn-sm btn-outline-secondary' %>
+          <%= link_to 'Show', image_path(image), class: 'btn btn-sm btn-outline-secondary' unless show %>
+          <%= link_to 'Edit', edit_image_path(image), class: 'btn btn-sm btn-outline-secondary' if show %>
           <%= link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' if show %>
         </div>
       </div>
