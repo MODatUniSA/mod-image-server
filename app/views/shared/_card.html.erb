@@ -17,7 +17,16 @@
           <% else %>
           <%= link_to 'Reject', image_moderate_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-danger' %>
           <% end %>
-          <%= link_to 'Show', image_path(image), class: 'btn btn-sm btn-outline-secondary' unless show %>
+          <% if not image.rude %>
+          <%= link_to 'R', image_rude_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-secondary' %>
+          <% else %>
+          <%= link_to '-R', image_unrude_path(image, page: params["page"]), class: 'btn btn-sm btn-secondary' %>
+          <% end %>
+          <% if not image.funny %>
+          <%= link_to 'F', image_funny_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-secondary' %>
+          <% else %>
+          <%= link_to '-F', image_unfunny_path(image, page: params["page"]), class: 'btn btn-sm btn-secondary' %>
+          <% end %>
           <%= link_to 'Edit', edit_image_path(image), class: 'btn btn-sm btn-outline-secondary' if show %>
           <%= link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' if show %>
         </div>

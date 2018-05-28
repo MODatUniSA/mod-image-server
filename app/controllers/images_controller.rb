@@ -11,7 +11,25 @@ class ImagesController < ApplicationController
     @image_count = Image.count
     if ActionController::Base.helpers.sanitize(params[:accepted]) == "true"
       # Just show the accepted images
-      @images = Image.where(moderate: false).reverse
+      @images = Image.where(moderate: false).reverse_order
+      if not @images.empty?
+        @images = @images.page params[:page]
+      end
+      @image_count = @images.count
+    elsif ActionController::Base.helpers.sanitize(params[:rude]) == "true"
+      # Just show the rude images
+      @images = Image.where(rude: true).reverse_order
+      if not @images.empty?
+        @images = @images.page params[:page]
+      end
+      @image_count = @images.count
+    elsif ActionController::Base.helpers.sanitize(params[:funny]) == "true"
+      # Just show the rude images
+      @images = Image.where(funny: true).reverse_order
+      if not @images.empty?
+        @images = @images.page params[:page]
+      end
+      @image_count = @images.count
     else
       @images = Image.all.reverse_order.page params[:page]
     end
@@ -50,6 +68,64 @@ class ImagesController < ApplicationController
   def unmoderate
     @image = Image.find(params["image_id"])
     @image.moderate = false
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
+        format.json { render :show, status: :ok, location: @image }
+      else
+        format.html { render :edit }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def rude
+    @image = Image.find(params["image_id"])
+    @image.moderate = true
+    @image.rude = true
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
+        format.json { render :show, status: :ok, location: @image }
+      else
+        format.html { render :edit }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def unrude
+    @image = Image.find(params["image_id"])
+    @image.moderate = false
+    @image.rude = false
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
+        format.json { render :show, status: :ok, location: @image }
+      else
+        format.html { render :edit }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def funny
+    @image = Image.find(params["image_id"])
+    @image.funny = true
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
+        format.json { render :show, status: :ok, location: @image }
+      else
+        format.html { render :edit }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def unfunny
+    @image = Image.find(params["image_id"])
+    @image.funny = false
     respond_to do |format|
       if @image.save
         format.html { redirect_to images_path(page: params["page"])}#, notice: 'Image was successfully moderated.' }
@@ -195,6 +271,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:data, :ios_data, :style_transfer, :style_data, :moderate)
+      params.require(:image).permit(:data, :ios_data, :style_transfer, :style_data, :moderate, :rude, :funny)
     end
 end

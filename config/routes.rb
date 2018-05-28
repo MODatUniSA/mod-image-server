@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   resources :images do
     get :moderate
     get :unmoderate
+    get :rude
+    get :unrude
+    get :funny
+    get :unfunny
   end
   get 'welcome/update_slideshow'
   # TODO: fix this
