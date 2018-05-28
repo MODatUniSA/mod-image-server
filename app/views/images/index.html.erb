@@ -5,15 +5,15 @@
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading"><%= @page_title %></h1>
-    <p class="lead text-muted">Here are the <%= @image_count %> images submitted by visitors.</p>
+    <p class="lead text-muted">Here are the <%= number_with_delimiter(@image_count, delimiter: ',') %> images submitted by visitors.</p>
     <!-- <p class="lead text-muted">It'll look like this:</p> -->
     <p>
       <% if params["accepted"] or params["rude"] or params["funny"] %>
         <%= link_to "Show all images", images_path, class: 'btn btn-outline-secondary my-2' %>
       <% else %>
-        <%= link_to "Show #{@accepted_images.count} accepted images", images_path(accepted: true), class: 'btn btn-outline-success my-2' %>
-        <%= link_to "#{@rude_images.count} rude images", images_path(rude: true), class: 'btn btn-outline-secondary my-2' %>
-        <%= link_to "#{@funny_images.count} funny images", images_path(funny: true), class: 'btn btn-outline-secondary my-2' %>
+        <%= link_to "Show #{number_with_delimiter(@accepted_images.count, delimiter: ',')} accepted images", images_path(accepted: true), class: 'btn btn-outline-success my-2' %>
+        <%= link_to "#{number_with_delimiter(@rude_images.count, delimiter: ',')} rude images", images_path(rude: true), class: 'btn btn-outline-secondary my-2' %>
+        <%= link_to "#{number_with_delimiter(@funny_images.count, delimiter: ',')} funny images", images_path(funny: true), class: 'btn btn-outline-secondary my-2' %>
       <% end %>
       <%= link_to "Update slideshow", welcome_update_slideshow_path, class: 'btn btn-outline-primary my-2' %>
       <!-- TODO: See if I can reboot from Rails... -->
