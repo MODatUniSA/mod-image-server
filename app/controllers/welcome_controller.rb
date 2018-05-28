@@ -1,7 +1,8 @@
 class WelcomeController < ApplicationController
 
   def index
-    @images = Image.where(moderate: false).reverse
+    @images = Image.where(moderate: false).order("RANDOM()").limit(10)
+    @image_count = Image.count
   end
 
   def update_slideshow
