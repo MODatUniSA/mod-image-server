@@ -9,8 +9,10 @@ class ImagesController < ApplicationController
   # GET /images.json
   def index
     @image_count = Image.count
+    @page_title = "Images"
     if ActionController::Base.helpers.sanitize(params[:accepted]) == "true"
       # Just show the accepted images
+      @page_title = "Accepted images"
       @images = Image.where(moderate: false).reverse_order
       if not @images.empty?
         @images = @images.page params[:page]
@@ -18,6 +20,7 @@ class ImagesController < ApplicationController
       @image_count = @images.count
     elsif ActionController::Base.helpers.sanitize(params[:rude]) == "true"
       # Just show the rude images
+      @page_title = "Rude images"
       @images = Image.where(rude: true).reverse_order
       if not @images.empty?
         @images = @images.page params[:page]
@@ -25,6 +28,7 @@ class ImagesController < ApplicationController
       @image_count = @images.count
     elsif ActionController::Base.helpers.sanitize(params[:funny]) == "true"
       # Just show the rude images
+      @page_title = "Funny images"
       @images = Image.where(funny: true).reverse_order
       if not @images.empty?
         @images = @images.page params[:page]
