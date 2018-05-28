@@ -10,10 +10,13 @@ class ImagesController < ApplicationController
   def index
     @image_count = Image.count
     @page_title = "Images"
+    @accepted_images = Image.where(moderate: false).reverse_order
+    @rude_images = Image.where(rude: true).reverse_order
+    @funny_images = Image.where(funny: true).reverse_order
     if ActionController::Base.helpers.sanitize(params[:accepted]) == "true"
       # Just show the accepted images
       @page_title = "Accepted images"
-      @images = Image.where(moderate: false).reverse_order
+      @images = @accepted_images
       @image_count = @images.count
       if not @images.empty?
         @images = @images.page params[:page]
@@ -21,7 +24,7 @@ class ImagesController < ApplicationController
     elsif ActionController::Base.helpers.sanitize(params[:rude]) == "true"
       # Just show the rude images
       @page_title = "Rude images"
-      @images = Image.where(rude: true).reverse_order
+      @images = @rude_images
       @image_count = @images.count
       if not @images.empty?
         @images = @images.page params[:page]
@@ -29,7 +32,7 @@ class ImagesController < ApplicationController
     elsif ActionController::Base.helpers.sanitize(params[:funny]) == "true"
       # Just show the rude images
       @page_title = "Funny images"
-      @images = Image.where(funny: true).reverse_order
+      @images = @funny_images
       @image_count = @images.count
       if not @images.empty?
         @images = @images.page params[:page]
