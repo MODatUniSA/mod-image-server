@@ -24,10 +24,10 @@
 
 <div class="album py-5 bg-light">
   <div class="container">
-    <%= paginate @images unless @images.empty? %>
+    <% paginate @images unless @images.empty? %>
     <div class="row">
     <% @images.each_with_index do |image, index| %>
-      <%= render partial: "shared/card", locals: { image: image, show: false, size: 3 } %>
+      <%= render partial: "shared/card", locals: { image: image, show: false, size: 2 } %>
     <% end %>
     </div>
     <%= paginate @images unless @images.empty? %>
