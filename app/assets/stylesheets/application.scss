@@ -25,6 +25,10 @@ body {
   color: #5a5a5a;
 }
 
+.d-flex + .d-flex {
+  padding-top: 0.5rem;
+}
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -111,6 +115,10 @@ body {
 
 :root {
   --jumbotron-padding-y: 3rem;
+}
+
+.album.py-5 {
+  padding-top: 1rem !important;
 }
 
 .jumbotron {

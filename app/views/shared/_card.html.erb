@@ -14,23 +14,35 @@
         <div class="btn-group">
           <% if image.moderate %>
           <%= link_to 'Accept', image_unmoderate_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-success' %>
+          <%= link_to 'Rejected', image_moderate_path(image, page: params["page"]), class: 'btn btn-sm btn-danger' %>
           <% else %>
+          <%= link_to 'Accepted', image_unmoderate_path(image, page: params["page"]), class: 'btn btn-sm btn-success' %>
           <%= link_to 'Reject', image_moderate_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-danger' %>
           <% end %>
-          <% if not image.rude %>
-          <%= link_to 'R', image_rude_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-secondary' %>
-          <% else %>
-          <%= link_to '-R', image_unrude_path(image, page: params["page"]), class: 'btn btn-sm btn-secondary' %>
-          <% end %>
-          <% if not image.funny %>
-          <%= link_to 'F', image_funny_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-secondary' %>
-          <% else %>
-          <%= link_to '-F', image_unfunny_path(image, page: params["page"]), class: 'btn btn-sm btn-secondary' %>
-          <% end %>
-          <%= link_to 'Edit', edit_image_path(image), class: 'btn btn-sm btn-outline-secondary' if show %>
-          <%= link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' if show %>
         </div>
       </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <% if not image.rude %>
+          <%= link_to 'Rude', image_rude_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-secondary' %>
+          <% else %>
+          <%= link_to 'Rude', image_unrude_path(image, page: params["page"]), class: 'btn btn-sm btn-secondary' %>
+          <% end %>
+          <% if not image.funny %>
+          <%= link_to 'Funny', image_funny_path(image, page: params["page"]), class: 'btn btn-sm btn-outline-secondary' %>
+          <% else %>
+          <%= link_to 'Funny', image_unfunny_path(image, page: params["page"]), class: 'btn btn-sm btn-secondary' %>
+          <% end %>
+        </div>
+      </div>
+      <% if show %>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <%= link_to 'Edit', edit_image_path(image), class: 'btn btn-sm btn-outline-secondary' %>
+          <%= link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+        </div>
+      </div>
+      <% end %>
       <small class="text-muted"><%= image.created_at.strftime("%d %b %I:%M%p") %></small>
     </div>
   </div>

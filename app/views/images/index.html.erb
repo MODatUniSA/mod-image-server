@@ -4,8 +4,8 @@
 
 <section class="jumbotron text-center show-all-images">
   <div class="container">
-    <h1 class="jumbotron-heading"><%= @page_title %></h1>
-    <p class="lead text-muted">Here are the <%= number_with_delimiter(@image_count, delimiter: ',') %> images submitted by visitors.</p>
+    <h1 class="jumbotron-heading"><%= number_with_delimiter(@image_count, delimiter: ',') %> <%= @page_title %></h1>
+    <!-- <p class="lead text-muted">Here are the <%= number_with_delimiter(@image_count, delimiter: ',') %> images submitted by visitors.</p> -->
     <!-- <p class="lead text-muted">It'll look like this:</p> -->
     <p>
       <% if params["accepted"] or params["rude"] or params["funny"] %>
@@ -24,13 +24,12 @@
 
 <div class="album py-5 bg-light">
   <div class="container">
-
+    <%= paginate @images unless @images.empty? %>
     <div class="row">
     <% @images.each_with_index do |image, index| %>
-      <%= render partial: "shared/card", locals: { image: image, show: false, size: 2 } %>
+      <%= render partial: "shared/card", locals: { image: image, show: false, size: 3 } %>
     <% end %>
     </div>
-    <br /><br />
     <%= paginate @images unless @images.empty? %>
   </div>
 </div>

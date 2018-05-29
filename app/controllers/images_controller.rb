@@ -103,7 +103,7 @@ class ImagesController < ApplicationController
 
   def unrude
     @image = Image.find(params["image_id"])
-    @image.moderate = false
+    # @image.moderate = false
     @image.rude = false
     respond_to do |format|
       if @image.save
